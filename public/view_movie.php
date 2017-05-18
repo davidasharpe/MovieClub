@@ -5,6 +5,7 @@
   require_once('../includes/functions.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
+  $active_parent_page = "movies";
   $active_page = "movies";
   // Render header
   include('../includes/header.php');
@@ -27,8 +28,8 @@
          $movie = mysqli_fetch_assoc($result_movie);
          echo "<h1>" . $movie["Title"] . "</h1>";
        ?>
-       <div class="row col-sm-12"  style="margin-bottom:20px">
-         <div class="col-sm-6">
+       <div class="view_movie" style="margin-bottom:20px">
+         <div class="col-md-6">
            <!-- Display movie data -->
             <table class="table">
                 <tr>
@@ -66,49 +67,49 @@
               </table>
               <br/>
               <a type="button" href="movies.php" class="btn btn-default">Back</a>
-          </div>
-          <div class="col-sm-6">
-            <?php
-              if(isset($movie['Image'])){
-                $movie_image = $movie['Image'];
-                echo "<img class='movie_image' src ='" . $movie_image . "'/>";
-              }
-             ?>
-          </div>
+            </div>
+            <div class="col-md-6">
+              <?php
+                if(isset($movie['Image'])){
+                  $movie_image = $movie['Image'];
+                  echo "<img class='movie_image' src ='" . $movie_image . "'/>";
+                }
+               ?>
+            </div>
          </div>
          <!-- Rate Movie -->
          <?php if($logged_in == true) {include('../includes/rate_movie.php');}
          ?>
            <!-- END Rate Movie -->
-           <div class="row col-sm-12">
+           <div class="column-bg">
              <h2>Movie Ratings</h2>
-             <table class="table">
-               <tr>
-                <th>Rating</th>
-                <th>Review</th>
-                <th>Member</th>
-              </tr>
-               <?php
-                // Use returned data (if any)
-                while($row = mysqli_fetch_assoc($result_ratings)){
-               ?>
-                <tr>
-                  <td>
-                    <?php
-                      $num_stars = $row["Rating"];
-                      $star = "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
-                      for ($i = 1; $i <= $num_stars; $i++) {
-                        echo $star;
-                      }
-                    ?>
-                  </td>
-                  <td><?php echo $row["Review"] ?></td>
-                  <td><?php echo $row["UserName"] ?></td>
+               <table class="table">
+                 <tr>
+                  <th>Rating</th>
+                  <th>Review</th>
+                  <th>Member</th>
                 </tr>
-               <?php
-                }
-               ?>
-             </table>
+                 <?php
+                  // Use returned data (if any)
+                  while($row = mysqli_fetch_assoc($result_ratings)){
+                 ?>
+                  <tr>
+                    <td>
+                      <?php
+                        $num_stars = $row["Rating"];
+                        $star = "<span class='glyphicon glyphicon-star' aria-hidden='true'></span>";
+                        for ($i = 1; $i <= $num_stars; $i++) {
+                          echo $star;
+                        }
+                      ?>
+                    </td>
+                    <td><?php echo $row["Review"] ?></td>
+                    <td><?php echo $row["UserName"] ?></td>
+                  </tr>
+                 <?php
+                  }
+                 ?>
+               </table>
            </div>
          </div>
      </div>

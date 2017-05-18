@@ -10,6 +10,7 @@
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
+  $active_parent_page = "movies";
   $active_page = "add_movie";
   // Render header
   include('../includes/header.php');
@@ -99,112 +100,114 @@
    <div class="main">
      <div class="starter-template">
        <h1>Add Movie</h1>
-       <form name="add_movie" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
-        <div class="form-group">
-          <div class="col-sm-2">
-          </div>
-          <div class="col-sm-5">
-            <?php if(isset($success_message)) { echo $success_message; } ?>
-            <?php if(isset($error_message)) { echo $error_message; } ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="title" class="col-sm-2 control-label">Title</label>
-          <div class="col-sm-5">
-            <input type="texbox" class="form-control" id="title" name="title" placeholder="title of movie" value="<?php if(isset($title)) { echo htmlspecialchars($title); } ?>" data-validation="required">
-          </div>
-          <div class=col-sm-5>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="director" class="col-sm-2 control-label">Director</label>
+       <div class="column-bg">
+         <form name="add_movie" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
+          <div class="form-group">
+            <div class="col-sm-2">
+            </div>
             <div class="col-sm-5">
-              <div class="director">
-                <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
-                    <?php get_directors(); ?>
+              <?php if(isset($success_message)) { echo $success_message; } ?>
+              <?php if(isset($error_message)) { echo $error_message; } ?>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="title" class="col-sm-2 control-label">Title</label>
+            <div class="col-sm-5">
+              <input type="texbox" class="form-control" id="title" name="title" placeholder="title of movie" value="<?php if(isset($title)) { echo htmlspecialchars($title); } ?>" data-validation="required">
+            </div>
+            <div class=col-sm-5>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="director" class="col-sm-2 control-label">Director</label>
+              <div class="col-sm-5">
+                <div class="director">
+                  <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
+                      <?php get_directors(); ?>
+                  </select>
+                  <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
+                </div>
+                <a href="add_director.php" class="link">Add Director(s)</a>
+              </div>
+              <div class="col-sm-5">
+              </div>
+          </div>
+          <div class="form-group">
+            <label for="producer" class="col-sm-2 control-label">Producer</label>
+            <div class="col-sm-5">
+              <div class="producer">
+                  <select multiple class="form-control" id="producers" name="producers[]" data-validation="required">
+                    <?php get_producers(); ?>
+                  </select>
+                  <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
+              </div>
+              <a href="add_producer.php" class="link">Add Producer(s)</a>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="release_date" class="col-sm-2 control-label">Release Date</label>
+            <div class="col-sm-5">
+              <input type="date" class="form-control" id="release_date" name="release_date" data-validation="required date" data-validation-format="yyyy-mm-dd">
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="running_time" class="col-sm-2 control-label">Running Time</label>
+            <div class="col-sm-5">
+              <input type="texbox" class="form-control" id="running_time" name="running_time" data-validation="required number" data-validation-allowing="range[1;999]" placeholder="minutes" value="<?php if(isset($running_time)){ echo htmlspecialchars($running_time); } ?>" >
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="genre" class="col-sm-2 control-label">Genre</label>
+            <div class="col-sm-5">
+              <select class="form-control" id="genre" name="genre" data-validation="required">
+                <option value="">select</option>
+                  <?php get_genres(); ?>
+              </select>
+              <a href="add_genre.php" class="link">Add Genre</a>
+            </div>
+            <div class="col-sm-5">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="actor" class="col-sm-2 control-label">Actor(s)</label>
+            <div class="col-sm-5">
+              <div class="actor">
+                <select multiple class="form-control" id="actors" name="actors[]" data-validation="required">
+                  <?php get_actors(); ?>
                 </select>
                 <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
               </div>
-              <a href="add_director.php" class="link">Add Director(s)</a>
+              <a href="add_actor.php" class="link">Add Actor</a>
             </div>
             <div class="col-sm-5">
             </div>
-        </div>
-        <div class="form-group">
-          <label for="producer" class="col-sm-2 control-label">Producer</label>
-          <div class="col-sm-5">
-            <div class="producer">
-                <select multiple class="form-control" id="producers" name="producers[]" data-validation="required">
-                  <?php get_producers(); ?>
-                </select>
-                <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
-            </div>
-            <a href="add_producer.php" class="link">Add Producer(s)</a>
           </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="release_date" class="col-sm-2 control-label">Release Date</label>
-          <div class="col-sm-5">
-            <input type="date" class="form-control" id="release_date" name="release_date" data-validation="required date" data-validation-format="yyyy-mm-dd">
-          </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="running_time" class="col-sm-2 control-label">Running Time</label>
-          <div class="col-sm-5">
-            <input type="texbox" class="form-control" id="running_time" name="running_time" data-validation="required number" data-validation-allowing="range[1;999]" placeholder="minutes" value="<?php if(isset($running_time)){ echo htmlspecialchars($running_time); } ?>" >
-          </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="genre" class="col-sm-2 control-label">Genre</label>
-          <div class="col-sm-5">
-            <select class="form-control" id="genre" name="genre" data-validation="required">
-              <option value="">select</option>
-                <?php get_genres(); ?>
-            </select>
-            <a href="add_genre.php" class="link">Add Genre</a>
-          </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="actor" class="col-sm-2 control-label">Actor(s)</label>
-          <div class="col-sm-5">
-            <div class="actor">
-              <select multiple class="form-control" id="actors" name="actors[]" data-validation="required">
-                <?php get_actors(); ?>
+          <div class="form-group">
+            <label for="distributor" class="col-sm-2 control-label">Distributor</label>
+            <div class="col-sm-5">
+              <select class="form-control" id="distributor" name="distributor" data-validation="required">
+                <option value="">select</option>
+                <?php get_distributors(); ?>
               </select>
-              <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
+              <a href="add_distributor.php" class="link">Add Distributor</a>
             </div>
-            <a href="add_actor.php" class="link">Add Actor</a>
+            <div class="col-sm-5">
+            </div>
           </div>
-          <div class="col-sm-5">
+          <div class="form-group">
+            <div class="col-sm-offset-2 col-sm-10">
+              <input type="submit" name="submit" value="Submit" class="btn btn-success"/>
+              <input type="reset" name="reset" value="Reset" class="btn btn-default" />
+            </div>
           </div>
-        </div>
-        <div class="form-group">
-          <label for="distributor" class="col-sm-2 control-label">Distributor</label>
-          <div class="col-sm-5">
-            <select class="form-control" id="distributor" name="distributor" data-validation="required">
-              <option value="">select</option>
-              <?php get_distributors(); ?>
-            </select>
-            <a href="add_distributor.php" class="link">Add Distributor</a>
-          </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" name="submit" value="Submit" class="btn btn-success"/>
-            <input type="reset" name="reset" value="Reset" class="btn btn-default" />
-          </div>
-        </div>
-      </form>
+         </form>
+      </div>
      </div>
 <?php
   mysqli_close($connection);

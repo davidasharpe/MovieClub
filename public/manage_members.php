@@ -9,7 +9,8 @@
   // Include database
   require_once('../includes/database.php');
   // Set active page for navigation
-  $active_page = "admin";
+  $active_parent_page = "admin";
+  $active_page = "manage_members";
   // Render header
   include('../includes/header.php');
   // Pagination
@@ -25,6 +26,7 @@
   <div class="main">
     <div class="starter-template">
       <h1>Members</h1>
+      <div class="column-bg">
       <table class="table">
         <tr>
          <th>First Name</th>
@@ -57,13 +59,14 @@
       </table>
       <a href="add_member.php" class="link">Add Member</a>
     </div>
-    <div class="pagination">
+  </div>
+  <div class="pagination">
      <a href="#">&laquo;</a>
      <a href="#">1</a>
      <a class="active" href="#">2</a>
      <a href="#">3</a>
      <a href="#">&raquo;</a>
-   </div>
+ </div>
 <?php
   include('../includes/footer.php');
 ?>

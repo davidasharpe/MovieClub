@@ -3,6 +3,7 @@
   require_once('../includes/session.php');
   require_once('../includes/functions.php');
   // Get member id for the logged in user
+  $active_parent_page = "";
   $member_id = $_GET["id"];
   // Check if user is logged in, if not rediect to login page
   if($logged_in == false){
@@ -78,7 +79,8 @@
    <div class="main">
      <div class="starter-template">
        <h1>Member Account</h1>
-       <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
+       <div class="column-bg">
+         <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
         <div class="form-group">
           <div class="form-group">
             <div class="col-sm-2">
@@ -148,7 +150,8 @@
             ?>
           </div>
         </div>
-      </form>
+        </form>
+      </div>
      </div>
    </div>
 <?php

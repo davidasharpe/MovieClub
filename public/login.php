@@ -10,6 +10,7 @@
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
+  $active_parent_page = "";
   $active_page = "login";
   // Render page header
   include('../includes/header.php');
@@ -67,7 +68,8 @@
    <div class="main">
      <div class="starter-template">
        <h1>Login</h1>
-       <div class="row">
+       <div class="column-bg">
+         <div class="row">
            <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
              <div class="form-group">
                <div class="form-group">
@@ -101,6 +103,7 @@
                </div>
              </div>
           </form>
+       </div>
        </div>
      </div>
    </div>

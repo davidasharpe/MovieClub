@@ -10,6 +10,7 @@
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
+  $active_parent_page = "";
   $active_page = "account";
 
   include('../includes/header.php');
@@ -67,7 +68,8 @@
    <div class="main">
      <div class="starter-template">
        <h1>Change Password</h1>
-       <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
+       <div class="column-bg">
+         <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
         <div class="form-group">
           <div class="form-group">
             <div class="col-sm-2">
@@ -108,6 +110,7 @@
             <a type="button" href="<?php echo 'account.php?id=' . $member_id; ?>" class="btn btn-default">Back</a>
           </div>
         </div>
+       </div>
       </form>
      </div>
    </div>

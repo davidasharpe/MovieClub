@@ -9,6 +9,7 @@
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
+  $active_parent_page = "movies";
   $active_page = "add_movie";
   // Render header
   include('../includes/header.php');

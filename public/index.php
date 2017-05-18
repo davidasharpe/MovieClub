@@ -4,6 +4,7 @@
   require_once('../includes/database.php');
   require_once('../includes/functions.php');
   // Set active page for navigation
+  $active_parent_page = "";
   $active_page = "index";
   // Render header
   include('../includes/header.php');
@@ -25,16 +26,68 @@
    <div class="main">
      <div class="starter-template">
        <div class="row">
-         <div class="col-sm-5">
-           <h1>Movie Club</h1>
-           <h2>Welcome to the movie club</h2>
-           <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus posuere blandit. Etiam nec eros vel ante auctor congue vel et lacus. Quisque aliquet posuere ipsum, at ultricies eros ultricies et. Suspendisse sit amet nisl metus. Cras auctor cursus nibh, eu pretium orci interdum fringilla. Sed ipsum mi, euismod in nisl vel, ullamcorper dapibus ante. Morbi congue, sem quis auctor accumsan, ipsum ipsum euismod dolor, tincidunt tempor nibh sapien a mi. In euismod sapien id venenatis maximus. Aenean ultrices mi facilisis scelerisque sodales. Sed mattis auctor diam eu faucibus. Nulla sollicitudin risus suscipit iaculis pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
-           <p>Pellentesque arcu metus, scelerisque fermentum porta vel, lobortis quis justo. Integer quis lectus lorem. Quisque ex est, fermentum non vulputate in, lobortis in erat. Donec eu arcu augue. Aenean sollicitudin orci eget laoreet efficitur. Quisque tincidunt turpis vel leo venenatis, eu sollicitudin orci dignissim. Ut dapibus metus et iaculis maximus.</p>
-           <p>Phasellus commodo diam sit amet sapien vehicula, eu rhoncus neque blandit. Etiam eget interdum felis. Aenean egestas vestibulum metus, et tincidunt sem posuere eu. Sed pharetra, mauris in lacinia imperdiet, dui purus laoreet tellus, in tincidunt lectus lectus eget libero. Nam rhoncus nec nunc vel tempor. Fusce eu facilisis sapien. Sed sed nisl id diam facilisis laoreet. Maecenas sed sagittis tortor. Nulla sodales est vel risus rhoncus varius. Aliquam quis velit at turpis consequat tempor. Integer lorem tortor, scelerisque sit amet ante vitae, porta luctus mauris. Proin et dolor nec dolor feugiat vestibulum.</p>
+         <div class="col-md-7">
+           <div class="column-bg column_home">
+             <h1>Movie Club</h1>
+             <h2>Welcome to the movie club</h2>
+             <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin finibus posuere blandit. Etiam nec eros vel ante auctor congue vel et lacus. Quisque aliquet posuere ipsum, at ultricies eros ultricies et. Suspendisse sit amet nisl metus. Cras auctor cursus nibh, eu pretium orci interdum fringilla. Sed ipsum mi, euismod in nisl vel, ullamcorper dapibus ante. Morbi congue, sem quis auctor accumsan, ipsum ipsum euismod dolor, tincidunt tempor nibh sapien a mi. In euismod sapien id venenatis maximus. Aenean ultrices mi facilisis scelerisque sodales. Sed mattis auctor diam eu faucibus. Nulla sollicitudin risus suscipit iaculis pulvinar. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae;</p>
+             <img src="images/cinema-all-aperto-rimini.jpg" alt ="projector" style="width:100%">
+             <p>Pellentesque arcu metus, scelerisque fermentum porta vel, lobortis quis justo. Integer quis lectus lorem. Quisque ex est, fermentum non vulputate in, lobortis in erat. Donec eu arcu augue. Aenean sollicitudin orci eget laoreet efficitur. Quisque tincidunt turpis vel leo venenatis, eu sollicitudin orci dignissim. Ut dapibus metus et iaculis maximus.</p>
+             <p>Phasellus commodo diam sit amet sapien vehicula, eu rhoncus neque blandit. Etiam eget interdum felis. Aenean egestas vestibulum metus, et tincidunt sem posuere eu. Sed pharetra, mauris in lacinia imperdiet, dui purus laoreet tellus, in tincidunt lectus lectus eget libero. Nam rhoncus nec nunc vel tempor. Fusce eu facilisis sapien. Sed sed nisl id diam facilisis laoreet. Maecenas sed sagittis tortor. Nulla sodales est vel risus rhoncus varius. Aliquam quis velit at turpis consequat tempor. Integer lorem tortor, scelerisque sit amet ante vitae, porta luctus mauris. Proin et dolor nec dolor feugiat vestibulum.</p>
+           </div>
          </div>
-         <div class="col-sm-5"></div>
-         <div class="col-sm-2">
-           <div id="user_preferences">
+         <div class="col-md-3 screenings">
+           <div class="">
+             <h3>Screenings</h3>
+             <h4>Every Friday 7:30pm</h4>
+             <h5>Community Hall, Main Street, Town centre</h5>
+             <table class="table">
+               <tr>
+                 <th>June</th>
+                 <th></th>
+               </tr>
+               <tr>
+                 <td>02</td>
+                 <td>2001: A Space Odessey</td>
+               </tr>
+               <tr>
+                 <td>09</td>
+                 <td>Slumdog Millionaire</td>
+               </tr>
+               <tr>
+                 <td>16</td>
+                 <td>Finding Nemo</td>
+               </tr>
+               <tr>
+                 <td>23</td>
+                 <td>The Best Exotic Marigold Hotel</td>
+               </tr>
+               <tr>
+                 <th>July</th>
+                 <th></th>
+               </tr>
+               <tr>
+                 <td>07</td>
+                 <td>Interstellar</td>
+               </tr>
+               <tr>
+                 <td>14</td>
+                 <td>Amelie</td>
+               </tr>
+               <tr>
+                 <td>21</td>
+                 <td>Pans Labyrinth</td>
+               </tr>
+               <tr>
+                 <td>28</td>
+                 <td>Tree of Life</td>
+               </tr>
+             </table>
+             <h6>Refreshments available.</h6>
+           </div>
+         </div>
+         <div class="col-md-2">
+           <div class="column-bg column_home" id="user_preferences">
              <h4>User Preferences</h4>
              <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
                <div class="form-group">

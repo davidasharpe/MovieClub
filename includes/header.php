@@ -30,25 +30,32 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.php">Movie Club</a>
+          <a class="navbar-brand" href="index.php"><span><img src="../public/images/projector.png" style="margin-right:10px; margin-bottom:-10px;">Movie Club</span></a>
         </div>
         <div id="navbar" class="collapse navbar-collapse">
           <ul class="nav navbar-nav">
             <li <?php if($active_page == "index"){echo "class='active'";} ?>><a href="index.php">Home</a></li>
-            <li <?php if($active_page == "movies"){echo "class='active'";} ?>><a href="movies.php">Movies</a></li>
-            <li <?php if($active_page == "add_movie"){echo "class='active'";} ?>><a href="add_movie.php">Add Movie</a></li>
+            <li <?php if($active_parent_page == "movies"){echo "class='active'";} ?>>
+              <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Movies<span class='caret'></span></a>
+              <ul class='dropdown-menu'>
+                <li <?php if($active_page == "view_movies"){echo "class='active'";} ?>><a href="movies.php?limit=1&page=10">View Movies</a>
+                <li <?php if($active_page == "add_movie"){echo "class='active'";} ?>><a href="add_movie.php">Add Movie</a></li>
+              </ul>
+            </li>
+            <li <?php if($active_page == "gallery"){echo "class='active'";} ?>><a href="gallery.php">Gallery</a></li>
             <?php if(isset($_SESSION['user_type'])){
               if ($_SESSION["user_type"] == "admin"){
-                echo "<li class='dropdown"; if($active_page == "admin"){echo " active'";}
-                echo "'><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Admin<span class='caret'></span></a>
+                echo "<li ";if($active_parent_page == "admin"){echo "class='active' ";}
+                echo "><a href='#' class='dropdown-toggle' data-toggle='dropdown' role='button' aria-haspopup='true' aria-expanded='false'>Admin<span class='caret'></span></a>
                         <ul class='dropdown-menu'>
-                          <li><a href='manage_members.php'>Manage Members</a></li>
-                          <li><a href='add_member.php'>Add Member</a></li>
+                          <li "; if($active_page == 'manage_members'){echo "class='active' ";} echo "><a href='manage_members.php'>Manage Members</a></li>
+                          <li "; if($active_page == 'add_member'){echo "class='active' ";} echo "><a href='add_member.php'>Add Member</a></li>
                         </ul>
                       </li>";
                 }
               }
             ?>
+          <li <?php if($active_page == "help"){echo "class='active'";} ?>><a href="help.php">Help</a></li>
           </ul>
           <ul class="nav navbar-nav navbar-right">
             <?php if($logged_in == true) {echo "<li "; if($active_page == "account"){echo "class='active'";} echo "><a href='account.php?id={$member_id}'>" . $user_name . "</a></li>";} ?>

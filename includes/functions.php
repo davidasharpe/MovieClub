@@ -37,6 +37,69 @@ function list_all_movies(){
 
   return $result_movies;
 }
+
+// List all movies
+function movies_directors_actors(){
+  global $connection;
+  global $result_movies;
+  $query_movies = "SELECT MovieID, Title, Genre, ReleaseDate
+                   FROM movies
+                   INNER JOIN genres ON movies.GenreID = genres.GenreID
+                   ORDER BY Title ASC";
+  $result_movies = mysqli_query($connection, $query_movies);
+  test_query($result_movies);
+  while($row = mysqli_fetch_assoc($result_movies)){
+    $movie_id = $row["MovieID"];
+    echo "<tr>";
+      echo "<td>" . $row["Title"] . "</td>";
+      echo "<td>" . directors($movie_id) . "</td>";
+      echo "<td>" . actors($movie_id) . "</td>";
+      echo "<td>" . $row["Genre"] . "</td>";
+      echo "<td>" . "<a href='view_movie.php?id={$movie_id}' class='button'>View</a></td>";
+    echo "</tr>";
+  }
+}
+
+// List directors for movie list
+function directors($movie_id){
+  global $connection;
+  $query_director = "SELECT FirstName, LastName
+                     FROM directors
+                     INNER JOIN director_movie ON director_movie.DirectorID = directors.DirectorID
+                     WHERE MovieID = {$movie_id}";
+  $result_directors = mysqli_query($connection, $query_director);
+  test_query($result_directors);
+  $index = 1;
+  $arrlength = count($result_directors);
+  while ($directors = mysqli_fetch_assoc($result_directors)){
+    echo $directors["FirstName"]." ".$directors["LastName"];
+    if($index < $arrlength){
+      echo ", ";
+      $index += 1;
+    }
+  }
+}
+
+// List actors for movie list
+function actors($movie_id){
+  global $connection;
+  $query_actor = "SELECT FirstName, LastName
+                  FROM actors
+                  INNER JOIN actor_movie ON actor_movie.ActorID = actors.ActorID
+                  WHERE MovieID = {$movie_id}";
+  $result_actors = mysqli_query($connection, $query_actor);
+  test_query($result_actors);
+  $index = 1;
+  $arrlength = count($result_actors);
+  while ($actors = mysqli_fetch_assoc($result_actors)){
+    echo $actors["FirstName"]." ".$actors["LastName"];
+    if($index < $arrlength){
+      echo ", ";
+      $index += 1;
+    }
+  }
+}
+
 // View Movie
 function list_movie($movie_id){
   global $connection;

@@ -10,7 +10,8 @@
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
   // Set active page for navigation
-  $active_page = "admin";
+  $active_parent_page = "admin";
+  $active_page = "add_member";
   // Render header
   include('../includes/header.php');
   //Check form submit
@@ -81,7 +82,8 @@
    <div class="main">
      <div class="starter-template">
        <h1>Add Member</h1>
-       <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
+       <div class="column-bg">
+         <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
         <div class="form-group">
           <div class="form-group">
             <div class="col-sm-2">
@@ -167,6 +169,7 @@
             <a type="button" href="manage_members.php" class="btn btn-default">Back</a>
           </div>
         </div>
+       </div>
       </form>
      </div>
 <?php
