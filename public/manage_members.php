@@ -27,6 +27,8 @@
     <div class="starter-template">
       <h1>Members</h1>
       <div class="column-bg">
+      <?php if(isset($_SESSION["message"])){echo "<h6 class='bg-success'>".$_SESSION["message"]."</h6>"; $_SESSION["message"] = "";} ?>
+      <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] = "";} ?>
       <table class="table">
         <tr>
          <th>First Name</th>
@@ -60,13 +62,6 @@
       <a href="add_member.php" class="link">Add Member</a>
     </div>
   </div>
-  <div class="pagination">
-     <a href="#">&laquo;</a>
-     <a href="#">1</a>
-     <a class="active" href="#">2</a>
-     <a href="#">3</a>
-     <a href="#">&raquo;</a>
- </div>
 <?php
   include('../includes/footer.php');
 ?>

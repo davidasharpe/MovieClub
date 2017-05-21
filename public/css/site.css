@@ -32,7 +32,6 @@
 .view_movie{
   border-radius: 10px;
   background: rgba(255, 255, 255, 0.3);
-  min-height: 650px;
   padding: 20px;
 }
 
@@ -43,8 +42,9 @@
 
 /* ----- Gallery ----- */
 
-.bxslider{
-
+.gallery{
+  width: 100%;
+  margin: 0 auto;
 }
 
 /* Forms  */
@@ -156,3 +156,19 @@ textarea{
     color: white;
 }
 .pagination a:hover:not(.active) {background-color: #ddd;}
+
+/* _____________________________ */
+
+.accordion-toggle {cursor: pointer;}
+.accordion-content {display: none;}
+.accordion-content.default {display: block;}
+
+.accordion-toggle{
+  margin-left: 10px;
+  color: #448ccb;
+  text-decoration: underline;
+}
+
+.accordion-content p{
+  margin-left: 20px;
+}

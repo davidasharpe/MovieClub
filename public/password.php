@@ -100,6 +100,7 @@
           <label for="confirm_password" class="col-sm-2 control-label">Re-enter Password</label>
           <div class="col-sm-5">
             <input type="password" name="confirm_password" id="confirm_password" class="form-control" data-validation="required">
+            <h6>Password must be between 6 and 15 characters long and contain at least one number.</h6>
           </div>
           <div class="col-sm-5">
           </div>

@@ -39,7 +39,6 @@
       $success_message = "";
       $error_message = "";
       // Get post values and remove whitespace
-      $user_type = $_POST["user_type"];
       $first_name = trim($_POST["first_name"]);
       $last_name = trim($_POST["last_name"]);
       $email = trim($_POST["email"]);
@@ -145,7 +144,10 @@
             <a type="button" href="password.php" class="btn btn-default">Change Password</a>
             <?php
               if ($_SESSION["user_type"] == "admin"){
-                echo "<a type='button' href='manage_members.php' class='btn btn-default'>Back</a>";
+                echo "<a type='button' href='manage_members.php' class='btn btn-default'>Back</a> ";
+                echo "<a type='button' href='delete_member.php?id=".urlencode($member["MemberID"]).
+                  "' onclick='return confirm(\"This record will be permanently deleted. Are you sure you want to do this?\");'".
+                  "class='btn btn-danger'>Delete</a>";
               }
             ?>
           </div>

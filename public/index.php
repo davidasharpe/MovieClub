@@ -84,6 +84,14 @@
                </tr>
              </table>
              <h6>Refreshments available.</h6>
+             <hr/>
+             <h5>Contact<h5>
+               <p>Phone: (02) 555 0000</p>
+               <p>Mobile: 0411 111 111</p>
+               <p>Email: <a href="mailto:info@movieclub.com?Subject=Enquiry%20" target="_top">info@movieclub.com.au</a></p>
+             <hr>
+             <h5>How to join</h5>
+              <p>Come along to a screening and one of our staff can sign you up.</p>
            </div>
          </div>
          <div class="col-md-2">

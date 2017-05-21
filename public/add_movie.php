@@ -88,7 +88,7 @@
           mysqli_query($connection, $insert_actor);
         }
         // Success message
-        $success_message = "<p class='bg-success'>The movie has beend successfully added to database.</p>";
+        $success_message = "<p class='bg-success'>The movie has been successfully added to database.</p>";
       } else {
         // Error message
         $error_message .= "<p class='bg-danger'>There was an error. Please try again.</p>";
@@ -122,8 +122,13 @@
             <label for="director" class="col-sm-2 control-label">Director</label>
               <div class="col-sm-5">
                 <div class="director">
+                  <?php get_directors(); ?>
                   <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
-                      <?php get_directors(); ?>
+                    <?php
+                    while ($directors = mysqli_fetch_assoc($result_get_directors)){
+                          echo "<option value='{$directors["DirectorID"]}'>".$directors["FirstName"]." ".$directors["LastName"]."</option>";
+                    }
+                    ?>
                   </select>
                   <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
                 </div>
@@ -136,8 +141,13 @@
             <label for="producer" class="col-sm-2 control-label">Producer</label>
             <div class="col-sm-5">
               <div class="producer">
+                  <?php get_producers(); ?>
                   <select multiple class="form-control" id="producers" name="producers[]" data-validation="required">
-                    <?php get_producers(); ?>
+                    <?php
+                    while ($producers = mysqli_fetch_assoc($result_get_producers)){
+                      echo "<option value='{$producers["ProducerID"]}'>".$producers["FirstName"]." ".$producers["LastName"]."</option>";
+                    }
+                    ?>
                   </select>
                   <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
               </div>
@@ -165,9 +175,14 @@
           <div class="form-group">
             <label for="genre" class="col-sm-2 control-label">Genre</label>
             <div class="col-sm-5">
+              <?php get_genres(); ?>
               <select class="form-control" id="genre" name="genre" data-validation="required">
                 <option value="">select</option>
-                  <?php get_genres(); ?>
+                  <?php
+                  while ($genres = mysqli_fetch_assoc($result_get_genres)){
+                    echo "<option value='{$genres["GenreID"]}'>".$genres["Genre"]."</option>";
+                  }
+                  ?>
               </select>
               <a href="add_genre.php" class="link">Add Genre</a>
             </div>
@@ -178,8 +193,13 @@
             <label for="actor" class="col-sm-2 control-label">Actor(s)</label>
             <div class="col-sm-5">
               <div class="actor">
+                <?php get_actors(); ?>
                 <select multiple class="form-control" id="actors" name="actors[]" data-validation="required">
-                  <?php get_actors(); ?>
+                  <?php
+                  while ($actors = mysqli_fetch_assoc($result_get_actors)){
+                    echo "<option value='{$actors["ActorID"]}'>".$actors["FirstName"]." ".$actors["LastName"]."</option>";
+                  }
+                  ?>
                 </select>
                 <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
               </div>
@@ -191,9 +211,14 @@
           <div class="form-group">
             <label for="distributor" class="col-sm-2 control-label">Distributor</label>
             <div class="col-sm-5">
+              <?php get_distributors(); ?>
               <select class="form-control" id="distributor" name="distributor" data-validation="required">
                 <option value="">select</option>
-                <?php get_distributors(); ?>
+                <?php
+                while ($distributors = mysqli_fetch_assoc($result_get_distributors)){
+                  echo "<option value='{$distributors["DistributorID"]}'>".$distributors["Distributor"]."</option>";
+                }
+                ?>
               </select>
               <a href="add_distributor.php" class="link">Add Distributor</a>
             </div>

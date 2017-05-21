@@ -17,8 +17,11 @@
      <div class="starter-template">
        <h1>Gallery</h1>
          <div class="row group">
-             <div class="column span12">
-                 <div class="column-bg" id="gallery">
+             <div class="col-md-12 column-bg">
+                   <div class="col-md-2">
+                   </div>
+                   <div class="col-md-8">
+                   <h2> Road to Revolution Premiere</h2>
                      <ul class="bxslider">
                          <li><img src="images/gallery/Road_to_Revolution_01.jpg" title="Road to Revolution Premiere" alt="Road to Revolution"></li>
                          <li><img src="images/gallery/Road_to_Revolution_02.jpg" title="Road to Revolution Premiere" alt="Road to Revolution"></li>
@@ -29,7 +32,9 @@
                          <li><img src="images/gallery/Road_to_Revolution_07.jpg" title="Road to Revolution Premiere" alt="Road to Revolution"></li>
                          <li><img src="images/gallery/Road_to_Revolution_08.jpg" title="Road to Revolution Premiere" alt="Road to Revolution"></li>
                      </ul>
-             </div>
+                   </div>
+                 <div class="col-md-2">
+                 </div>
            </div>
        </div>
      </div>
