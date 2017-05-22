@@ -152,6 +152,7 @@
                     <?php
                     while ($directors = mysqli_fetch_assoc($result_get_directors)){
                           echo "<option value='{$directors["DirectorID"]}'";
+                          list_directors($movie_id);
                             while ($select_directors = mysqli_fetch_assoc($result_list_directors)){
                               if($select_directors["DirectorID"] == $directors["DirectorID"]){
                                 echo " selected";}
@@ -185,6 +186,7 @@
                   <?php
                   while ($producers = mysqli_fetch_assoc($result_get_producers)){
                     echo "<option value='{$producers["ProducerID"]}'";
+                      list_producers($movie_id);
                       while ($select_producers = mysqli_fetch_assoc($result_list_producers)){
                         if($select_producers["ProducerID"] == $producers["ProducerID"]){
                           echo " selected";}
@@ -226,6 +228,7 @@
                   <?php
                   while ($genres = mysqli_fetch_assoc($result_get_genres)){
                     echo "<option value='{$genres["GenreID"]}'";
+                    list_movie($movie_id);
                     while ($movie = mysqli_fetch_assoc($result_movie)){
                       if($movie["GenreID"] == $genres["GenreID"]){
                         echo " selected";}
@@ -257,6 +260,7 @@
                   <?php
                   while ($actors = mysqli_fetch_assoc($result_get_actors)){
                     echo "<option value='{$actors["ActorID"]}'";
+                      list_actors($movie_id);
                       while ($select_actors = mysqli_fetch_assoc($result_list_actors)){
                         if($select_actors["ActorID"] == $actors["ActorID"]){
                           echo " selected";}
@@ -286,6 +290,7 @@
                 <?php
                 while ($distributors = mysqli_fetch_assoc($result_get_distributors)){
                   echo "<option value='{$distributors["DistributorID"]}'";
+                  list_movie($movie_id);
                   while ($movie = mysqli_fetch_assoc($result_movie)){
                     if($movie["DistributorID"] == $distributors["DistributorID"]){
                       echo " selected";}

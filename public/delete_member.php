@@ -15,7 +15,7 @@ $member_id = $_GET["id"];
 
 get_member($member_id);
 
-$query = "DELETE FROM members WHERE id = {$member_id} LIMIT 1";
+$query = "DELETE FROM members WHERE MemberID = {$member_id} LIMIT 1";
 $result = mysqli_query($connection, $query);
 
 if ($result && mysqli_affected_rows($connection) == 1) {

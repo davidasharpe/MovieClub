@@ -15,7 +15,7 @@ $movie_id = $_GET["id"];
 
 list_movie($movie_id);
 
-$query = "DELETE FROM movies WHERE id = {$movie_id} LIMIT 1";
+$query = "DELETE FROM movies WHERE MovieID = {$movie_id} LIMIT 1";
 $result = mysqli_query($connection, $query);
 
 if ($result && mysqli_affected_rows($connection) == 1) {
