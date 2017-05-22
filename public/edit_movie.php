@@ -81,26 +81,38 @@
                            GenreID = '{$genre}', DistributorID = '{$distributor}', Image = {$image}
                        WHERE MovieID = '{$movie_id}'";
       if(mysqli_query($connection, $update_movie)){
+        // Remove current selection of directors
+        $delete_director_movie = "DELETE FROM director_movie
+                                  WHERE MovieID = '{$movie_id}'";
+        mysqli_query($connection, $delete_director_movie);
         // Update Director(s) to movie
         foreach ($directors as $director) {
-          $update_director = "UPDATE director_movie
-                              SET DirectorID = '{$director}', MovieID = '{$movie_id}'
-                              WHERE MovieID = '{$movie_id}'";
-          mysqli_query($connection, $update_director);
+          $insert_director = "INSERT INTO director_movie
+                             (DirectorID, MovieID)
+                             VALUES ('{$director}', '{$movie_id}')";
+          mysqli_query($connection, $insert_director);
         }
-        // Add Producer(s) to new movie
+        // Remove current selection of producers
+        $delete_producer_movie = "DELETE FROM producer_movie
+                                  WHERE MovieID = '{$movie_id}'";
+        mysqli_query($connection, $delete_producer_movie);
+        // Update Producer(s) to new movie
         foreach($producers as $producer){
-          $update_producer = "UPDATE producer_movie
-                              SET ProducerID = '{{$producer}}', MovieID = '{$movie_id}'
-                              WHERE MovieID = '{$movie_id}'";
-          mysqli_query($connection, $update_producer);
+          $insert_producer = "INSERT INTO producer_movie
+                             (ProducerID, MovieID)
+                             VALUES ('{$producer}', '{$movie_id}')";
+          mysqli_query($connection, $insert_producer);
         }
-        // Add Actor(s) to new movie
+        // Remove current selection of actors
+        $delete_actor_movie = "DELETE FROM actor_movie
+                                  WHERE MovieID = '{$movie_id}'";
+        mysqli_query($connection, $delete_actor_movie);
+        // Update Actor(s) to new movie
         foreach($actors as $actor){
-          $update_actor = "UPDATE actor_movie
-                           SET ActorID = '{$actor}', MovieID = '{$movie_id}'
-                           WHERE MovieID = '{$movie_id}'";
-          mysqli_query($connection, $update_actor);
+          $insert_actor = "INSERT INTO actor_movie
+                    (ActorID, MovieID)
+                    VALUES ('$actor', '{$movie_id}')";
+          mysqli_query($connection, $insert_actor);
         }
         // Success message
         $success_message = "<p class='bg-success'>The movie has been successfully updated on the database.</p>";
@@ -138,16 +150,7 @@
             <label for="director" class="col-sm-2 control-label">Director</label>
               <div class="col-sm-5">
                 <div class="director">
-                  <?php get_directors(); list_directors($movie_id);
-                  $number_rows = mysqli_num_rows($result_list_directors);
-                  $count = 1;
-                  echo "<p>";
-                  while ($directors = mysqli_fetch_assoc($result_list_directors)){
-                    echo $directors["FirstName"]." ".$directors["LastName"]; if($count < $number_rows){echo", ";}
-                    $count++;
-                  }
-                  echo "</p>";
-                  ?>
+                  <?php get_directors(); ?>
                   <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
                     <?php
                     while ($directors = mysqli_fetch_assoc($result_get_directors)){
@@ -172,16 +175,7 @@
             <label for="producer" class="col-sm-2 control-label">Producer</label>
             <div class="col-sm-5">
               <div class="producer">
-                <?php get_producers(); list_producers($movie_id);
-                $number_rows = mysqli_num_rows($result_list_producers);
-                $count = 1;
-                echo "<p>";
-                while ($select_producers = mysqli_fetch_assoc($result_list_producers)){
-                  echo $select_producers["FirstName"]." ".$select_producers["LastName"]; if($count < $number_rows){echo", ";}
-                  $count++;
-                }
-                echo "</p>";
-                ?>
+                <?php get_producers(); ?>
                 <select multiple class="form-control" id="producers" name="producers[]" data-validation="required">
                   <?php
                   while ($producers = mysqli_fetch_assoc($result_get_producers)){
@@ -221,7 +215,6 @@
           <div class="form-group">
             <label for="genre" class="col-sm-2 control-label">Genre</label>
             <div class="col-sm-5">
-              <?php echo "<p>".$movie["Genre"]."</p>" ?>
               <?php get_genres(); ?>
               <select class="form-control" id="genre" name="genre" data-validation="required">
                 <option value="">select</option>
@@ -246,16 +239,7 @@
             <label for="actor" class="col-sm-2 control-label">Actor(s)</label>
             <div class="col-sm-5">
               <div class="actor">
-                <?php get_actors(); list_actors($movie_id);
-                $number_rows = mysqli_num_rows($result_list_actors);
-                $count = 1;
-                echo "<p>";
-                while ($actors = mysqli_fetch_assoc($result_list_actors)){
-                  echo $actors["FirstName"]." ".$actors["LastName"]; if($count < $number_rows){echo", ";}
-                  $count++;
-                }
-                echo "</p>";
-                ?>
+                <?php get_actors(); ?>
                 <select multiple class="form-control" id="actors" name="actors[]" data-validation="required">
                   <?php
                   while ($actors = mysqli_fetch_assoc($result_get_actors)){
@@ -283,7 +267,6 @@
             ?>
             <label for="distributor" class="col-sm-2 control-label">Distributor</label>
             <div class="col-sm-5">
-              <?php echo "<p>".$movie["Distributor"]."</p>"; ?>
               <?php get_distributors();?>
               <select class="form-control" id="distributor" name="distributor" data-validation="required">
                 <option value="">select</option>

@@ -125,6 +125,18 @@ function list_directors($movie_id){
   test_query($result_list_directors);
   return $result_list_directors;
 }
+// List director movie
+function list_director_movie($movie_id){
+  global $connection;
+  global $result_list_director_movie;
+  $query_director_movie = "SELECT *
+                           FROM director_movie
+                           WHERE MovieID = {$movie_id}";
+  $result_list_director_movie = mysqli_query($connection, $query_director_movie);
+  test_query($result_list_director_movie);
+  return $result_list_director_movie;
+}
+
 // List producers
 function list_producers($movie_id){
   global $connection;
@@ -137,6 +149,17 @@ function list_producers($movie_id){
   test_query($result_list_producers);
   return $result_list_producers;
 }
+// List producer movie
+function list_producer_movie($movie_id){
+  global $connection;
+  global $result_list_producer_movie;
+  $query_producer_movie = "SELECT *
+                           FROM producer_movie
+                           WHERE MovieID = {$movie_id}";
+  $result_list_producer_movie = mysqli_query($connection, $query_producer_movie);
+  test_query($result_list_producer_movie);
+  return $result_list_producer_movie;
+}
 // List actors
 function list_actors($movie_id){
   global $connection;
@@ -148,6 +171,17 @@ function list_actors($movie_id){
   $result_list_actors = mysqli_query($connection, $query_actor);
   test_query($result_list_actors);
   return $result_list_actors;
+}
+// List actor movie
+function list_actor_movie($movie_id){
+  global $connection;
+  global $result_list_actor_movie;
+  $query_actor_movie = "SELECT *
+                        FROM actor_movie
+                        WHERE MovieID = {$movie_id}";
+  $result_list_actor_movie = mysqli_query($connection, $query_actor_movie);
+  test_query($result_list_actor_movie);
+  return $result_list_actor_movie;
 }
 // Add Movies
 function select_all($table, $order){
