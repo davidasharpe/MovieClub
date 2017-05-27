@@ -64,6 +64,8 @@
         $result = mysqli_query($connection, $query);
         test_insert_query($result);
         $success_message = "<p class='bg-success'>Member details has been successfully updated</p>";
+      } else {
+        $error_message .= "<p class='bg-danger'>There was an error. Please try again.</p>";
       }
   } else {
     $first_name = $member["FirstName"];

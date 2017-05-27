@@ -6,7 +6,7 @@
   if($logged_in == false){
     redirect_to('login.php');
   }
-  $_SESSION["return_page"] = "add_movie.php";
+
   // Include database & validation
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
@@ -89,7 +89,7 @@
           mysqli_query($connection, $insert_actor);
         }
         // Success message
-        $_SESSION["message"] = "<p class='bg-success'>The movie has been successfully added to database.</p>";
+        $success_message = "<p class='bg-success'>The movie has been successfully added to database.</p>";
         redirect_to("movies.php");
       } else {
         // Error message
@@ -100,7 +100,7 @@
 ?>
  <div class="container">
    <div class="main">
-     <div class="starter-template">
+     <div id="add_movie">
        <h1>Add Movie</h1>
        <div class="column-bg">
          <form name="add_movie" action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal" enctype="multipart/form-data">
@@ -108,13 +108,16 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-5">
+              <?php if(isset($success_message)) { echo $success_message; } ?>
               <?php if(isset($error_message)) { echo $error_message; } ?>
+              <?php if(isset($_SESSION["message"])){echo "<h6 class='bg-success'>".$_SESSION["message"]."</h6>"; $_SESSION["message"] = "";} ?>
+              <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] = "";} ?>
             </div>
           </div>
           <div class="form-group">
             <label for="title" class="col-sm-2 control-label">Title</label>
             <div class="col-sm-5">
-              <input type="texbox" class="form-control" id="title" name="title" placeholder="title of movie" value="<?php if(isset($title)) { echo htmlspecialchars($title); } ?>" data-validation="required">
+              <input type="texbox" class="form-control" id="title" name="title" placeholder="title of movie" value="<?php if(isset($title)){echo htmlspecialchars($title);}?>" data-validation="required">
             </div>
             <div class=col-sm-5>
             </div>
@@ -125,15 +128,13 @@
                 <div class="director">
                   <?php get_directors(); ?>
                   <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
-                    <?php
-                    while ($directors = mysqli_fetch_assoc($result_get_directors)){
-                          echo "<option value='{$directors["DirectorID"]}'>".$directors["FirstName"]." ".$directors["LastName"]."</option>";
-                    }
-                    ?>
+                    // get data via ajax
                   </select>
                   <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
                 </div>
-                <a href="add_director.php" class="link">Add Director(s)</a>
+                <button id="load" type="button" class="btn btn-info btn-sm">Load</button>
+                <!-- Trigger the modal with a button -->
+                <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addDirector">Add Director(s)</button>
               </div>
               <div class="col-sm-5">
               </div>
@@ -160,7 +161,7 @@
           <div class="form-group">
             <label for="release_date" class="col-sm-2 control-label">Release Date</label>
             <div class="col-sm-5">
-              <input type="date" class="form-control" id="release_date" name="release_date" data-validation="required date" data-validation-format="yyyy-mm-dd">
+              <input type="date" class="form-control" id="release_date" name="release_date" data-validation="required date" data-validation-format="yyyy-mm-dd" value="<?php if(isset($release_date)){ echo htmlspecialchars($release_date); } ?>">
             </div>
             <div class="col-sm-5">
             </div>
@@ -236,9 +237,8 @@
       </div>
      </div>
      <!-- Modal -->
-      <div id="addDiector" class="modal fade" role="dialog">
+      <div id="addDirector" class="modal fade" role="dialog">
         <div class="modal-dialog">
-
           <!-- Modal content-->
           <div class="modal-content">
             <div class="modal-header">
@@ -246,13 +246,12 @@
               <h4 class="modal-title">Add Director</h4>
             </div>
             <div class="modal-body">
-              <?php includes('add_director.php');?>
+              <?php include('../includes/add_director.php'); ?>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
             </div>
           </div>
-
         </div>
       </div>
 <?php

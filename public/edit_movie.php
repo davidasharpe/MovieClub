@@ -6,6 +6,7 @@
     if(($logged_in == false) || ($user_type != "admin")){
       redirect_to('login.php');
     }
+  $_SESSION["return_page"] = "edit_movie.php";
   // Include database & validation
   require_once('../includes/database.php');
   require_once('../includes/validation.php');
@@ -34,8 +35,8 @@
     // Filter input
     $title = mysqli_real_escape_string($connection, $title);
     $release_date = filter_var($release_date, FILTER_SANITIZE_NUMBER_INT);
-    $running_time = intval($running_time);
-    // Validate fileds
+    $running_time = filter_var($running_time, FILTER_SANITIZE_NUMBER_INT);
+    // Validate fields
     validate_text($title, 'the movie title');
     validate_date($release_date);
     validate_time($running_time);
@@ -56,29 +57,11 @@
       $actors = $_POST['actors'];
       validate_select_field($actors);
     }
-    // Debug
-
-    echo $title."<br/>";
-    echo $release_date."<br/>";
-    echo $running_time."<br/>";
-    echo $genre."<br/>";
-    echo $distributor."<br/>";
-    echo $image."<br/>";
-    foreach ($directors as $director) {
-      echo $director."<br/>";
-    }
-    foreach ($producers as $producer) {
-      echo $producer."<br/>";
-    }
-    foreach ($directors as $actor) {
-      echo $actor."<br/>";
-    }
-
     // if there are no errors Update database
     if($form_errors == false){
       $update_movie = "UPDATE movies
-                       SET Title = '{$title}', ReleaseDate = '{$release_date}', RunningTime = '{{$running_time}}',
-                           GenreID = '{$genre}', DistributorID = '{$distributor}', Image = {$image}
+                       SET Title = '{$title}', ReleaseDate = '{$release_date}', RunningTime = '{$running_time}',
+                           GenreID = '{$genre}', DistributorID = '{$distributor}', Image = '{$image}'
                        WHERE MovieID = '{$movie_id}'";
       if(mysqli_query($connection, $update_movie)){
         // Remove current selection of directors
@@ -115,7 +98,8 @@
           mysqli_query($connection, $insert_actor);
         }
         // Success message
-        $success_message = "<p class='bg-success'>The movie has been successfully updated on the database.</p>";
+        $_SESSION["message"] = "<p class='bg-success'>The movie has been successfully updated on the database.</p>";
+        redirect_to("movies.php");
       } else {
         // Error message
         $error_message .= "<p class='bg-danger'>There was an error. Please try again.</p>";
@@ -133,9 +117,7 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-5">
-              <?php if(isset($success_message)) { echo $success_message; } ?>
               <?php if(isset($error_message)) { echo $error_message; } ?>
-              <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] = "";} ?>
             </div>
           </div>
           <div class="form-group">

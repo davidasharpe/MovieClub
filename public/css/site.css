@@ -27,6 +27,11 @@
   min-height: 930px;
 }
 
+.bg-success .bg-danger{
+  padding: 5px;
+  border-radius: 5px;
+}
+
 /* ----- View Movie ----- */
 
 .view_movie{

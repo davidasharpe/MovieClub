@@ -25,7 +25,7 @@
       // Filter input
       $first_name = mysqli_real_escape_string($connection, $first_name);
       $last_name = mysqli_real_escape_string($connection, $last_name);
-      // Validate fileds
+      // Validate fields
       validate_text($first_name, 'a first name');
       validate_text($last_name, 'a last name');
       // Check to see if producer exists in database

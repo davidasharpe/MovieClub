@@ -1,5 +1,5 @@
-// Get user preferences
 <?php require_once('../includes/user_preferences.php');?>
+// Get user preferences
 <!DOCTYPE html>
 <html lang="en">
   <head>

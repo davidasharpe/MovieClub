@@ -35,7 +35,7 @@
       $email = mysqli_real_escape_string($connection, $email);
       $phone = mysqli_real_escape_string($connection, $phone);
       $user_name = mysqli_real_escape_string($connection, $user_name);
-      // Validate fileds
+      // Validate fields
       validate_text($first_name, 'a first name');
       validate_text($last_name, 'a last name');
       validate_text($email, 'an email');
@@ -65,7 +65,10 @@
                   VALUES ('{$user_type}', '{$first_name}', '{$last_name}', '{$email}', '{$phone}', '{$user_name}','{$hashed_password}')";
         $result = mysqli_query($connection, $query);
         test_insert_query($result);
-        $success_message = "<p class='bg-success'>New user successfully added to database</p>";
+        $_SESSION["message"] = "<p class='bg-success'>New user successfully added to database</p>";
+        redirect_to("manage_members.php");
+      } else {
+        $error_message .= "<p class='bg-danger'>There was an error. Please try again.</p>";
       }
   } else {
     $first_name = "";
@@ -89,7 +92,6 @@
             <div class="col-sm-2">
             </div>
             <div class="col-sm-5">
-              <?php if(isset($success_message)) { echo $success_message; } ?>
               <?php if(isset($error_message)) { echo $error_message; } ?>
             </div>
           </div>

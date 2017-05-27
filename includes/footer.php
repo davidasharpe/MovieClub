@@ -5,12 +5,12 @@
 </div>
 </div><!-- /.container -->
 <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="../lib/jquery-ui/jquery-ui.min.js"></script>
 <!-- Setup form validation on all forms -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-form-validator/2.3.26/jquery.form-validator.min.js"></script>
 <!-- Include all compiled plugins (below), or include individual files as needed -->
-<script src="../lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 <!-- Include custom js -->
 <script src="js/main.js"></script>
 <!-- bxSlider Javascript file -->

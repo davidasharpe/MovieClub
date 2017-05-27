@@ -24,7 +24,7 @@
       $genre = trim($_POST["genre"]);
       // Filter input
       $genre = mysqli_real_escape_string($connection, $genre);
-      // Validate fileds
+      // Validate fields
       validate_text($genre, 'a genre');
       // Check to see if producer exists in database
       $query_genre = "SELECT * FROM genres WHERE genres.Genre = '{$genre}'";

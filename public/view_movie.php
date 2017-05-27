@@ -21,12 +21,10 @@
     $movie = mysqli_fetch_assoc($result_movie);
   // Get movie ratings
   list_movie_ratings($movie_id);
-  $_SESSION["error"] == "";
 ?>
  <div class="container">
    <div class="main">
      <div class="starter-template">
-
        <div class="col-md-12 view_movie" style="margin-bottom:20px">
          <?php echo "<h1>" . $movie["Title"] . "</h1>"; ?>
          <div class="col-md-6">
@@ -109,8 +107,8 @@
            <!-- END Rate Movie -->
            <div class="column-bg">
              <h2>Movie Ratings</h2>
-             <?php if(isset($_SESSION["message"])){echo "<h6 class='bg-success'>".$_SESSION["message"]."</h6>"; $_SESSION["message"] ="";} ?>
-             <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] == "";} ?>
+             <?php if(isset($_SESSION["message"])){echo "<h6 class='bg-success'>".$_SESSION["message"]."</h6>"; $_SESSION["message"] = "";} ?>
+             <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] = "";} ?>
                <table class="table">
                  <tr>
                   <th>Rating</th>

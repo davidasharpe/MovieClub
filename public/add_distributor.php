@@ -24,7 +24,7 @@
       $distributor = trim($_POST["distributor"]);
       // Filter input
       $distributor = mysqli_real_escape_string($connection, $distributor);
-      // Validate fileds
+      // Validate fields
       validate_text($distributor, 'a distributor');
       // Check to see if producer exists in database
       $query_distributor = "SELECT * FROM distributors WHERE distributors.Distributor = '{$distributor}'";

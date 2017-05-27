@@ -54,12 +54,12 @@
         $css = "https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/yeti/bootstrap.min.css";
         break;
      default:
-        $css = "../lib/bootstrap/css/bootstrap.min.css";
+        $css = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
        break;
      }
   } else {
     // Else set default
-    $css = "../lib/bootstrap/css/bootstrap.min.css";
+    $css = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css";
   }
   // Check if cookie is set
   if (isset($_COOKIE["font_size"])){
