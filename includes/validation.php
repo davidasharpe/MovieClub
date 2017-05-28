@@ -63,7 +63,6 @@ function record_exits($query){
   }
   // Release returned data
   mysqli_free_result($query_result);
-
   }
   // Test if there was a query error
   function confirm_query($results_set) {

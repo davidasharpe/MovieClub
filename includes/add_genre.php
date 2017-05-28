@@ -12,10 +12,11 @@
   // Set active page for navigation
   $active_parent_page = "movies";
   $active_page = "add_movie";
-  // Render header
-  include('../includes/header.php');
+  // Set default values
+  $_SESSION["message"] = "";
+  $_SESSION["error"] = "";
   //Check form submit
-  if (isset($_POST['submit'])){
+  if (isset($_POST['submit_genre'])){
       // Initialise variables
       $form_errors = false;
       $success_message = "";
@@ -27,7 +28,7 @@
       // Validate fields
       validate_text($genre, 'a genre');
       // Check to see if producer exists in database
-      $query_genre = "SELECT * FROM genres WHERE genres.Genre = '{$genre}'";
+      $query_genre = "SELECT * FROM genres WHERE genres.Name = '{$genre}'";
       test_query($query_genre);
       if(record_exits($query_genre)){
         $error_message .= "<p class='bg-danger'>This genre already exists in the database.</p><br/>";
@@ -36,7 +37,7 @@
       // if there are no errors add to database
       if($form_errors == false){
         $query = "INSERT INTO genres
-                  (Genre)
+                  (Name)
                   VALUES ('{$genre}')";
         $result = mysqli_query($connection, $query);
         test_insert_query($result);
@@ -49,35 +50,17 @@
     }
  ?>
  <div class="container">
-   <div class="main">
-     <div class="starter-template">
-       <h1>Add Genre</h1>
-       <form action="add_genre.php" method="post" class="form-horizontal">
-        <div class="form-group">
-          <div class="col-sm-2">
-          </div>
-          <div class="col-sm-5">
-             <?php if(isset($success_message)) { echo $success_message; } ?>
-             <?php if(isset($error_message)) {echo $error_message; } ?>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="genre" class="col-sm-2 control-label">Genre</label>
-          <div class="col-sm-5">
-            <input type="texbox" name="genre" id="genre" class="form-control" data-validation="required" value="<?php echo htmlspecialchars($genre); ?>">
-          </div>
-          <div class="col-sm-5">
-          </div>
-        </div>
-        <div class="form-group">
-          <div class="col-sm-offset-2 col-sm-10">
-            <input type="submit" name="submit" value="Submit" class="btn btn-success" />
-            <a type="button" href="add_movie.php" class="btn btn-default">Back</a>
-          </div>
-        </div>
-      </form>
-     </div>
-<?php
-  include('../includes/footer.php');
-  mysqli_close($connection);
-?>
+   <form action="<?php htmlspecialchars($_SERVER['PHP_SELF']); ?>" method="post" class="form-horizontal">
+    <div class="form-group">
+      <label for="genre" class="col-sm-2 control-label">Genre</label>
+      <div class="col-sm-4">
+        <input type="texbox" name="genre" id="genre" class="form-control" data-validation="required" value="<?php echo htmlspecialchars($genre); ?>">
+      </div>
+    </div>
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-4">
+        <input id="submit" type="submit" name="submit_genre" value="Submit" class="btn btn-success" />
+      </div>
+    </div>
+  </form>
+</div>

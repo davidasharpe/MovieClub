@@ -27,7 +27,7 @@ function test_insert_query($query_result){
 function list_all_movies(){
   global $connection;
   global $result_movies;
-  $query_movies = "SELECT MovieID, Title, ReleaseDate, RunningTime, Genre, Distributor
+  $query_movies = "SELECT MovieID, Title, ReleaseDate, RunningTime, genres.Name AS Genre, distributors.Name AS Distributor
                    FROM movies
                    INNER JOIN genres ON movies.GenreID = genres.GenreID
                    INNER JOIN distributors ON movies.DistributorID = distributors.DistributorID
@@ -42,7 +42,7 @@ function list_all_movies(){
 function movies_directors_actors(){
   global $connection;
   global $result_movies;
-  $query_movies = "SELECT MovieID, Title, Genre, ReleaseDate
+  $query_movies = "SELECT MovieID, Title, genres.Name AS Genre, ReleaseDate
                    FROM movies
                    INNER JOIN genres ON movies.GenreID = genres.GenreID
                    ORDER BY Title ASC";
@@ -104,8 +104,8 @@ function actors($movie_id){
 function list_movie($movie_id){
   global $connection;
   global $result_movie;
-  $query_movie = "SELECT *
-                  FROM Movies
+  $query_movie = "SELECT MovieID, Title, ReleaseDate, RunningTime, genres.Name AS Genre, distributors.Name AS Distributor, Image
+                  FROM movies
                   INNER JOIN genres ON movies.GenreID = genres.GenreID
                   INNER JOIN distributors ON movies.DistributorID = distributors.DistributorID
                   WHERE MovieID = {$movie_id}";
@@ -113,6 +113,18 @@ function list_movie($movie_id){
   test_query($result_movie);
   return $result_movie;
 }
+
+function movie($movie_id){
+  global $connection;
+  global $result_movie;
+  $query = "SELECT *
+            FROM movies
+            WHERE MovieID = {$movie_id}";
+  $result_movie = mysqli_query($connection, $query);
+  test_query($result_movie);
+  return $result_movie;
+}
+
 // List directors
 function list_directors($movie_id){
   global $connection;
@@ -234,7 +246,7 @@ function get_actors(){
 function get_genres(){
   global $connection;
   global $result_get_genres;
-  $query = "SELECT *
+  $query = "SELECT GenreID, genres.Name AS Genre
             FROM genres
             ORDER BY Genre";
   $result_get_genres = mysqli_query($connection, $query);
@@ -245,7 +257,7 @@ function get_genres(){
 function get_distributors(){
   global $connection;
   global $result_get_distributors;
-  $query = "SELECT *
+  $query = "SELECT DistributorID, distributors.Name AS Distributor
             FROM distributors
             ORDER BY Distributor";
   $result_get_distributors = mysqli_query($connection, $query);

@@ -27,6 +27,12 @@
     $running_time = trim($_POST['running_time']);
     $genre = trim($_POST['genre']);
     $distributor = trim($_POST['distributor']);
+
+    echo $title."<br>";
+    echo $release_date."<br>";
+    echo $running_time."<br>";
+    echo $genre."<br>";
+    echo $distributor."<br>";
     // Filter input
     $title = mysqli_real_escape_string($connection, $title);
     $release_date = filter_var($release_date, FILTER_SANITIZE_NUMBER_INT);
@@ -37,6 +43,7 @@
     validate_time($running_time);
     validate_select_field($genre);
     validate_select_field($distributor);
+
     // Validate directors
     if(isset($_POST['directors'])) {
       $directors = $_POST['directors'];
@@ -110,8 +117,8 @@
             <div class="col-sm-5">
               <?php if(isset($success_message)) { echo $success_message; } ?>
               <?php if(isset($error_message)) { echo $error_message; } ?>
-              <?php if(isset($_SESSION["message"])){echo "<h6 class='bg-success'>".$_SESSION["message"]."</h6>"; $_SESSION["message"] = "";} ?>
-              <?php if(isset($_SESSION["error"])){echo "<h6 class='bg-danger'>".$_SESSION["error"]."</h6>"; $_SESSION["error"] = "";} ?>
+              <?php if(isset($_SESSION["message"])){echo $_SESSION["message"]; $_SESSION["message"] = "";} ?>
+              <?php if(isset($_SESSION["error"])){echo $_SESSION["error"]; $_SESSION["error"] = "";} ?>
             </div>
           </div>
           <div class="form-group">
@@ -128,13 +135,13 @@
                 <div class="director">
                   <?php get_directors(); ?>
                   <select multiple class="form-control" id="directors" name="directors[]" data-validation="required">
-                    // get data via ajax
+                    <!-- Get data via ajax -->
                   </select>
                   <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
                 </div>
-                <button id="load" type="button" class="btn btn-info btn-sm">Load</button>
                 <!-- Trigger the modal with a button -->
                 <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addDirector">Add Director(s)</button>
+                <button type="button" id="loadDirectors" class="btn btn-info btn-sm" style="height:32px" data-toggle="tooltip" title="Refresh"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
               </div>
               <div class="col-sm-5">
               </div>
@@ -145,15 +152,12 @@
               <div class="producer">
                   <?php get_producers(); ?>
                   <select multiple class="form-control" id="producers" name="producers[]" data-validation="required">
-                    <?php
-                    while ($producers = mysqli_fetch_assoc($result_get_producers)){
-                      echo "<option value='{$producers["ProducerID"]}'>".$producers["FirstName"]." ".$producers["LastName"]."</option>";
-                    }
-                    ?>
+                    <!-- Get data via ajax -->
                   </select>
                   <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
               </div>
-              <a href="add_producer.php" class="link">Add Producer(s)</a>
+              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addProducer">Add Producer(s)</button>
+              <button type="button" id="loadProducers" class="btn btn-info btn-sm" style="height:32px" data-toggle="tooltip" title="Refresh"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
             </div>
             <div class="col-sm-5">
             </div>
@@ -178,15 +182,12 @@
             <label for="genre" class="col-sm-2 control-label">Genre</label>
             <div class="col-sm-5">
               <?php get_genres(); ?>
-              <select class="form-control" id="genre" name="genre" data-validation="required">
+              <select class="form-control" id="genres" name="genre" data-validation="required">
                 <option value="">select</option>
-                  <?php
-                  while ($genres = mysqli_fetch_assoc($result_get_genres)){
-                    echo "<option value='{$genres["GenreID"]}'>".$genres["Genre"]."</option>";
-                  }
-                  ?>
+                  <!-- Get data via ajax -->
               </select>
-              <a href="add_genre.php" class="link">Add Genre</a>
+              <button type="button" class="btn btn-info btn-sm" style="margin-top:10px" data-toggle="modal" data-target="#addGenre">Add Genre</button>
+              <button type="button" id="loadGenres" class="btn btn-info btn-sm" style="height:32px;margin-top:10px" data-toggle="tooltip" title="Refresh"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
             </div>
             <div class="col-sm-5">
             </div>
@@ -197,15 +198,12 @@
               <div class="actor">
                 <?php get_actors(); ?>
                 <select multiple class="form-control" id="actors" name="actors[]" data-validation="required">
-                  <?php
-                  while ($actors = mysqli_fetch_assoc($result_get_actors)){
-                    echo "<option value='{$actors["ActorID"]}'>".$actors["FirstName"]." ".$actors["LastName"]."</option>";
-                  }
-                  ?>
+                  <!-- Get data via ajax -->
                 </select>
                 <h6>To Select multiple items, PC: Ctrl + click, Mac: Cmd + click</h6>
               </div>
-              <a href="add_actor.php" class="link">Add Actor</a>
+              <button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#addActor">Add Actor(s)</button>
+              <button type="button" id="loadActors" class="btn btn-info btn-sm" style="height:32px" data-toggle="tooltip" title="Refresh"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
             </div>
             <div class="col-sm-5">
             </div>
@@ -214,15 +212,12 @@
             <label for="distributor" class="col-sm-2 control-label">Distributor</label>
             <div class="col-sm-5">
               <?php get_distributors(); ?>
-              <select class="form-control" id="distributor" name="distributor" data-validation="required">
+              <select class="form-control" id="distributors" name="distributor" data-validation="required">
                 <option value="">select</option>
-                <?php
-                while ($distributors = mysqli_fetch_assoc($result_get_distributors)){
-                  echo "<option value='{$distributors["DistributorID"]}'>".$distributors["Distributor"]."</option>";
-                }
-                ?>
+                <!-- Get data via ajax -->
               </select>
-              <a href="add_distributor.php" class="link">Add Distributor</a>
+              <button type="button" class="btn btn-info btn-sm" style="margin-top:10px" data-toggle="modal" data-target="#addDistributor">Add Distributor</button>
+              <button type="button" id="loadDistributors" class="btn btn-info btn-sm" style="height:32px;margin-top:10px" data-toggle="tooltip" title="Refresh"><span class="glyphicon glyphicon glyphicon-refresh" aria-hidden="true"></span></button>
             </div>
             <div class="col-sm-5">
             </div>
@@ -230,13 +225,13 @@
           <div class="form-group">
             <div class="col-sm-offset-2 col-sm-10">
               <input type="submit" name="submit" value="Submit" class="btn btn-success"/>
-              <input type="reset" name="reset" value="Reset" class="btn btn-default" />
+              <input type="reset" name="reset" value="Reset" class="btn btn-default" href="add_movie.php" />
             </div>
           </div>
          </form>
       </div>
      </div>
-     <!-- Modal -->
+     <!-- Add Director Modal -->
       <div id="addDirector" class="modal fade" role="dialog">
         <div class="modal-dialog">
           <!-- Modal content-->
@@ -254,6 +249,78 @@
           </div>
         </div>
       </div>
+      <!-- Add Producer Modal -->
+       <div id="addProducer" class="modal fade" role="dialog">
+         <div class="modal-dialog">
+           <!-- Modal content-->
+           <div class="modal-content">
+             <div class="modal-header">
+               <button type="button" class="close" data-dismiss="modal">&times;</button>
+               <h4 class="modal-title">Add Producer</h4>
+             </div>
+             <div class="modal-body">
+               <?php include('../includes/add_producer.php'); ?>
+             </div>
+             <div class="modal-footer">
+               <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+             </div>
+           </div>
+         </div>
+       </div>
+       <!-- Add Actor Modal -->
+        <div id="addActor" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+            <!-- Modal content-->
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title">Add Actor</h4>
+              </div>
+              <div class="modal-body">
+                <?php include('../includes/add_actor.php'); ?>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Genre Modal -->
+         <div id="addGenre" class="modal fade" role="dialog">
+           <div class="modal-dialog">
+             <!-- Modal content-->
+             <div class="modal-content">
+               <div class="modal-header">
+                 <button type="button" class="close" data-dismiss="modal">&times;</button>
+                 <h4 class="modal-title">Add Genre</h4>
+               </div>
+               <div class="modal-body">
+                 <?php include('../includes/add_genre.php'); ?>
+               </div>
+               <div class="modal-footer">
+                 <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+               </div>
+             </div>
+           </div>
+         </div>
+         <!-- Add Distributor Modal -->
+          <div id="addDistributor" class="modal fade" role="dialog">
+            <div class="modal-dialog">
+              <!-- Modal content-->
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal">&times;</button>
+                  <h4 class="modal-title">Add Distributor</h4>
+                </div>
+                <div class="modal-body">
+                  <?php include('../includes/add_distributor.php'); ?>
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+              </div>
+            </div>
+          </div>
 <?php
   mysqli_close($connection);
   include('../includes/footer.php');

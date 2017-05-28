@@ -37,6 +37,7 @@
     validate_time($running_time);
     validate_select_field($genre);
     validate_select_field($distributor);
+
     // Validate directors
     if(isset($_POST['directors'])) {
       $directors = $_POST['directors'];
@@ -235,26 +236,6 @@
          </form>
       </div>
      </div>
-     <!-- Modal -->
-      <div id="addDiector" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-          <!-- Modal content-->
-          <div class="modal-content">
-            <div class="modal-header">
-              <button type="button" class="close" data-dismiss="modal">&times;</button>
-              <h4 class="modal-title">Add Director</h4>
-            </div>
-            <div class="modal-body">
-              <?php includes('add_director.php');?>
-            </div>
-            <div class="modal-footer">
-              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            </div>
-          </div>
-
-        </div>
-      </div>
 <?php
   mysqli_close($connection);
   include('../includes/footer.php');

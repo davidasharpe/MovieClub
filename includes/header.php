@@ -1,5 +1,4 @@
 <?php require_once('../includes/user_preferences.php');?>
-// Get user preferences
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +20,7 @@
     <![endif]-->
   </head>
   <body style="background: <?php echo $background ?>; font-size: <?php echo $font ?>">
-    <nav class="navbar navbar-inverse navbar-fixed-top" > <!-- class="navbar navbar-inverse navbar-fixed-top" -->
+    <nav class="navbar navbar-inverse navbar" > <!-- class="navbar navbar-inverse navbar-fixed-top" -->
       <div class="container">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">

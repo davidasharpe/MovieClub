@@ -203,7 +203,7 @@
                   <?php
                   while ($genres = mysqli_fetch_assoc($result_get_genres)){
                     echo "<option value='{$genres["GenreID"]}'";
-                    list_movie($movie_id);
+                    movie($movie_id);
                     while ($movie = mysqli_fetch_assoc($result_movie)){
                       if($movie["GenreID"] == $genres["GenreID"]){
                         echo " selected";}
@@ -255,7 +255,7 @@
                 <?php
                 while ($distributors = mysqli_fetch_assoc($result_get_distributors)){
                   echo "<option value='{$distributors["DistributorID"]}'";
-                  list_movie($movie_id);
+                  movie($movie_id);
                   while ($movie = mysqli_fetch_assoc($result_movie)){
                     if($movie["DistributorID"] == $distributors["DistributorID"]){
                       echo " selected";}

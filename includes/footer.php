@@ -17,6 +17,5 @@
 <!-- <script src="../lib/jquery.bxslider/jquery.bxslider.min.js"></script> -->
 <!-- bxSlider CSS file -->
 <!-- <link href="../lib/jquery.bxslider/jquery.bxslider.css" rel="stylesheet" /> -->
-
 </body>
 </html>
